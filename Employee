@@ -1,0 +1,141 @@
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Scanner;
+
+public class EmployeesManager {
+
+	
+	private List<Employee> empList = new ArrayList<>();
+  /**
+   * Implement EmployeesManager to manage all employees of a company
+   *
+   */
+
+  /**
+   * Adds an Employee
+   *
+   * @param employee
+   * @return
+   */
+  String addEmployee(Employee employee) {
+    // TODO - implement this
+	  empList.add(employee);
+	
+    return null;
+  }
+
+  /**
+   * Finds an Employee
+   *
+   * @param employeeId
+   * @return
+   */
+  Employee findEmployee(String employeeId) {
+    // TODO - implement this
+    return null;
+  }
+
+  /**
+   * Find all Employee who are older than X years
+   * @param years
+   * @return
+   */
+  Collection<Employee> findEmployee(int years) {
+    return null;
+  }
+
+  /**
+   * Removes an employee
+   *
+   * @param employeeId
+   * @return
+   */
+  boolean removeEmployee(String employeeId) {
+    // TODO - implement this
+    return false;
+  }
+
+  /**
+   * Lists all Employees
+   *
+   * @return
+   */
+  Collection<Employee> listEmployees() {
+    // TODO - implement this
+    return null;
+  }
+  
+  public static void main(String[] args) {
+	Scanner sc = new Scanner(System.in);
+	Employee emp = new Employee(sc.next(), sc.next());
+	List<Employee> empList = new ArrayList<>();
+	EmployeesManager empmanager = new EmployeesManager();
+	empmanager.addEmployee(emp);
+}
+}
+
+
+ class Employee {
+
+  private int ageInYears;
+  private int ageInMonths;
+  private String birthDate;
+  private String firstName;
+  private String lastName;
+  
+  private String employeeId;
+  static int id =0;
+
+  public Employee(String fullName, String birthDate) {
+    // TODO - implement this
+	  
+	  int idx = fullName.lastIndexOf(' ');
+	  if (idx == -1)
+	      throw new IllegalArgumentException("Only a single name: " + fullName);
+	   this.firstName = fullName.substring(0, idx);
+	   this.lastName  = fullName.substring(idx + 1);
+	   DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
+
+	   LocalDate localDate = LocalDate.parse(birthDate,formatter);
+	   this.ageInYears=this.getAgeInYears(localDate, LocalDate.now());
+	   Period p=Period.between(localDate,  LocalDate.now());
+	   this.ageInMonths=p.getMonths();
+	   this.employeeId = String.valueOf(id++);
+  }
+  
+  
+
+  public int getAgeInYears(LocalDate birthDate,LocalDate currentDate) {
+	  if ((birthDate != null) && (currentDate != null)) {
+          return Period.between(birthDate,  currentDate).getYears();
+      } else {
+          return 0;
+      }
+   
+  }
+
+  public int getAgeInMonths() {
+    return ageInMonths;
+  }
+
+  public String getFirstName() {
+    return firstName;
+  }
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public String getEmployeeId() {
+    return employeeId;
+  }
+
+  public String getBirthDate() {
+    return birthDate;
+  }
+
+}
